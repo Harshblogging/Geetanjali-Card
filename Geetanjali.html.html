@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For My Geetanjalii ❤️</title>
+  <style>
+    body, html {margin:0; padding:0; width:100%; height:100%; font-family:Arial, sans-serif; overflow:hidden; background:#ffe8f0; display:flex; justify-content:center; align-items:center;}
+    .modalWrap {position:fixed; inset:0; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.2); z-index:10;}
+    .modal {background:#fff; border-radius:18px; padding:24px; max-width:500px; width:90%; text-align:center; box-shadow:0 18px 50px rgba(178,31,90,0.2); z-index:20;}
+    h1 {margin-bottom:12px; color:#b21f5a; font-size:24px;}
+    p {margin-bottom:12px; font-size:16px; color:#333; line-height:1.4;}
+    .btn {padding:10px 16px; border-radius:10px; border:none; cursor:pointer; font-weight:600; font-size:15px; margin:5px;}
+    .btn-primary {background:#b21f5a; color:white;}
+    .btn-outline {background:transparent; border:2px solid #f3c2d1; color:#b21f5a;}
+    .hidden {display:none;}
+    .heart {position:absolute; font-size:24px; user-select:none; pointer-events:none;}
+    @keyframes float {0% {transform:translateY(100vh) rotate(0deg); opacity:0;} 20%{opacity:1;} 100%{transform:translateY(-20vh) rotate(360deg); opacity:0;}}
+  </style>
+</head>
+<body>
+  <div id="hearts"></div>
+  <div class="modalWrap" id="modalWrap">
+    <div class="modal">
+      <div id="intro">
+        <h1 id="introText"></h1>
+        <p id="introPara"></p>
+        <button class="btn btn-primary" id="startBtn" disabled>Loading...</button>
+      </div>
+
+      <div id="periodMsg" class="hidden">
+        <h1>Heyy Geetanjalii ❤️</h1>
+        <p>Harsh loves you a lot. It's your 1st day of periods — I'm here with you. Sending warm hugs, care, and chocolate vibes 🍫</p>
+        <div id="loveOptions">
+          <p style="color:#b21f5a; font-weight:500; margin-bottom:8px;">Do you love him?</p>
+          <button class="btn btn-primary" data-answer="more">More ❤️</button>
+          <button class="btn btn-outline" data-answer="morethan">More than anything 💕</button>
+        </div>
+      </div>
+
+      <div id="admireText" class="hidden">
+        <p>You are the sunshine of his life, the peace in his chaos, the reason behind his biggest smiles. 🌸<br><br>Every little thing about you is special and magical. ✨<br><br><b>Meri Jaan, Harsh tujse bhott pyar krta h. Hamesha sath rhio — vo sab kuch karega tere leyy. ❤️</b></p>
+        <button class="btn btn-primary" id="closeBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const introText = document.getElementById('introText');
+    const introPara = document.getElementById('introPara');
+    const startBtn = document.getElementById('startBtn');
+    const intro = document.getElementById('intro');
+    const periodMsg = document.getElementById('periodMsg');
+    const loveOptions = document.getElementById('loveOptions');
+    const admireText = document.getElementById('admireText');
+    const modalWrap = document.getElementById('modalWrap');
+
+    // Typewriter effect
+    function typeWriter(el, text, speed, cb){
+      let i=0;
+      function typing(){
+        if(i<text.length){ el.textContent += text.charAt(i); i++; setTimeout(typing, speed);} else {if(cb) cb();}
+      }
+      typing();
+    }
+
+    typeWriter(introText,"Hi My Pretty Girl 🌸",80,()=>{
+      setTimeout(()=>{
+        typeWriter(introPara,"You’re the most beautiful part of my life, and I just wanted to make something tiny yet special for you 💖",40,()=>{
+          startBtn.disabled=false;
+          startBtn.textContent="Yes 😍";
+        });
+      },500);
+    });
+
+    startBtn.addEventListener('click',()=>{
+      intro.classList.add('hidden');
+      periodMsg.classList.remove('hidden');
+    });
+
+    loveOptions.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        loveOptions.style.display='none';
+        admireText.classList.remove('hidden');
+      });
+    });
+
+    document.getElementById('closeBtn').addEventListener('click',()=>{
+      modalWrap.style.display='none';
+    });
+
+    // Floating hearts
+    function createHeart(){
+      const heart = document.createElement('div');
+      heart.className='heart';
+      heart.textContent = ['❤️','💖','💕','💓','💞'][Math.floor(Math.random()*5)];
+      heart.style.left = Math.random()*100+'vw';
+      heart.style.animationDuration = (4+Math.random()*4)+'s';
+      heart.style.fontSize = (18+Math.random()*20)+'px';
+      heart.style.animationName='float';
+      heart.style.animationTimingFunction='linear';
+      document.getElementById('hearts').appendChild(heart);
+      setTimeout(()=>heart.remove(),7000);
+    }
+    setInterval(createHeart,800);
+  </script>
+</body>
+</html>
